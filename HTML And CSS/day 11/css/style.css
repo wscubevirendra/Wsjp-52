@@ -108,7 +108,7 @@ body{
 .middle-right{
     width: 830px;
     height: 750px;
-    border: 1px solid green;
+   
     float: right;
 }
 
@@ -131,4 +131,40 @@ body{
     font-family: Arial !important;
     padding-top: 10px;
 
+}
+
+.middle-right-course{
+    width:830px ;
+    height: 300px;
+  
+}
+
+.course-content{
+    width: 400px;
+    height: 240px;
+
+   
+    float: left;
+}
+.icon-text{
+    width: 390px;
+    height: 21px;
+    margin-top: 20px;
+  
+
+}
+
+
+.icon{
+    width: 34px;
+    height: 34px;
+    float: left;
+    border-radius: 50%;
+    background-color: #e6611c;
+}
+
+.text{
+    float: left;
+    margin-left: 20px;
+    
 }
