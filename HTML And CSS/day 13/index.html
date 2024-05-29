@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>form</title>
+    <style>
+        .myform{
+            width: 1000px;
+            border: 4px solid magenta;
+            height: 600px;
+            margin: auto;
+        }
+
+        label,input{
+            padding:10px ;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        button{
+            padding: 10px;
+            width: 100px;
+            margin-top: 60px;
+            margin-left: 50px;
+        }
+        #country{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form class="myform">
+       <div>
+        <label for="user_name">Name:-</label>
+        <input  maxlength="20" required id="user_name" type="text" name="user_name">
+       </div>
+       <div>
+        <label for="password">password:-</label>
+        <input autofocus placeholder="password" id="password"  name="password" type="password">
+       </div>
+       <div>
+        <label for="date">Date_Time</label>
+        <input id="date" type="datetime-local">
+        <label for="">Month</label>
+        <input type="month">
+        <label for=""></label>
+        <input type="week">
+       </div>
+       <div>
+        <label for="">Range</label>
+        <input type="range">
+       </div>
+       <div>
+        <label for="country">Country</label>
+        <select name="country" id="country">
+          
+            <option disabled value="pakistan">Pakistan</option>
+            <option value="nepal">Nepal</option>
+            <option value="bhutan">Bhutan</option>
+            <option disabled value="china">China</option>
+            <option value="usa">United States</option>
+            <option  value="india">India</option>
+            <option value="canada">Canada</option>
+            <option value="australia">Australia</option>
+            <option value="japan">Japan</option>
+            <option value="germany">Germany</option>
+            <option value="france">France</option>
+            <option value="brazil">Brazil</option>
+            <option value="south_africa">South Africa</option>
+            <option selected value="russia">Russia</option>
+            <option value="mexico">Mexico</option>
+        </select>
+        
+       </div>
+       <div>
+        <label >Size:-</label>
+        <input type="checkbox">
+        <label for="">L</label>
+        <input type="checkbox">
+        <label for="">XL</label>
+
+       </div>
+       <div>
+        <label for="">Age</label>
+        <input min="18" max="55" type="number" name="" id="">
+       </div>
+       
+    <button type="submit">submit</button>
+    <button type="reset">reset</button>
+       
+    </form>
+</body>
+</html>
