@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Document</title>
+    <style>
+       
+
+        button{
+            width: 200px;
+            height: 40px;
+            background-color: black;
+            margin-top: 300px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 300px;
+        }
+        h2{
+            transform: translateX(-1000px);
+            transition: 0.4s;
+        }
+
+        button:hover h2{
+
+            transform: translateX(0px);
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="box">1</div>
+    </div>
+
+    <button>
+       <h2>Hello</h2>
+    </button>
+    
+</body>
+</html>

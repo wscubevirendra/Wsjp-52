@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: #9c27b0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .moveit {
+            width: 400px;
+            height: 400px;
+            transform: rotateX(60deg);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .moveit span {
+            display: block;
+            border-radius: 50%;
+            border: 5px solid white;
+            position: absolute;
+            animation: move 2s infinite ease-in-out;
+        }
+
+        @keyframes move {
+            0%,100% {
+                transform: translateZ(0px);
+            }
+
+            50% {
+                transform: translateZ(100px);
+            }
+        }
+
+        .moveit span:nth-child(1) {
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            bottom: 0px;
+            animation-delay: 0.9s;
+
+        }
+
+        .moveit span:nth-child(2) {
+            top: 10px;
+            right: 10px;
+            left: 10px;
+            bottom: 10px;
+            animation-delay: 0.8s;
+
+        }
+
+        .moveit span:nth-child(3) {
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            bottom: 20px;
+            animation-delay: 0.7s;
+
+        }
+
+
+        .moveit span:nth-child(4) {
+            top: 30px;
+            right: 30px;
+            left: 30px;
+            bottom: 30px;
+            animation-delay: 0.6s;
+
+        }
+
+        .moveit span:nth-child(5) {
+            top: 40px;
+            right: 40px;
+            left: 40px;
+            bottom: 40px;
+            animation-delay: 0.5s;
+
+        }
+
+        .moveit span:nth-child(6) {
+            top: 50px;
+            right: 50px;
+            left: 50px;
+            bottom: 50px;
+            animation-delay: 0.4s;
+
+        }
+
+
+        .moveit span:nth-child(7) {
+            top: 60px;
+            right: 60px;
+            left: 60px;
+            bottom: 60px;
+            animation-delay: 0.4s;
+
+        }
+
+        .moveit span:nth-child(8) {
+            top: 70px;
+            right: 70px;
+            left: 70px;
+            bottom: 70px;
+            animation-delay: 0.3s;
+
+        }
+
+        .moveit span:nth-child(9) {
+            top: 80px;
+            right: 80px;
+            left: 80px;
+            bottom: 80px;
+            animation-delay: 0.2s;
+
+        }
+
+        .moveit span:nth-child(10) {
+            top: 90px;
+            right: 90px;
+            left: 90px;
+            bottom: 90px;
+            animation-delay: 0.1s;
+        }
+        .moveit span:nth-child(11) {
+            top: 100px;
+            right: 100px;
+            left: 100px;
+            bottom: 100px;
+            animation-delay: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="moveit">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span><span>
+
+        </span><span></span>
+        <span></span>
+        <span></span>
+    </div>
+</body>
+
+</html>

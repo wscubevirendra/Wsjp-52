@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Document</title>
+    <style>
+        button{
+            width: 200px;
+            height: 40px;
+            color: black;
+            background-color: white;
+        margin:200px 400px;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        outline: none;
+        border: none;
+        
+    
+        }
+
+button::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: purple;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    transition: 1s;
+    transform: translateX(-150px) skew(0deg);
+}
+
+button:hover::before{
+    transform: translateX(0px) skew(90deg);
+
+
+}
+button:hover{
+    border: 1px solid purple;
+}
+
+    </style>
+</head>
+<body>
+    <button>
+Hellow
+    </button>
+</body>
+</html>

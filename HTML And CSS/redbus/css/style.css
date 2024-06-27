@@ -1,0 +1,113 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+header{
+    width: 100%;
+    height: 100px;
+    border: 1px solid red;
+
+}
+
+.container{
+    width: 1200px;
+    height: 100px;
+margin: auto;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.vertical-line{
+    width: 1px;
+    height: 20px;
+    background-color: #e0e0e0;
+
+    margin: 0px 54px 0px 64px;
+}
+
+.top-left{
+width: 225px;
+height: 72px;
+display: flex;
+gap: 10px;
+}
+
+.top-right{
+    width: 225px;
+    height: 72px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 40px;
+    
+    }
+
+.box1{
+    width: 104px;
+    height: 72px;
+  
+    background-color: #d84e55;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.box2{
+    width: 104px;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+position: relative;
+    align-items: center;
+}
+
+.box1 img{
+    height:20px;
+    filter: brightness(0) invert(1);
+}
+
+
+.box1 div{
+    color:  #fff;
+    font-weight: 500;
+}
+
+.box2 span{
+    background-color: #60b681;
+    padding: 2px;
+    border-radius: 8px;
+    position: absolute;
+    right: -18px;
+    top: -7px;
+}
+
+.help{
+    width: 83px;
+    height: 34px;
+    border: 1px solid red;
+}
+.account{
+width: 120px;
+height: 34px;
+border: 1px solid  green;
+
+}

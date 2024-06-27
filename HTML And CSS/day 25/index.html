@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+        }
+        .main{
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to right, #f37335, #fdc830)
+        }
+        .animated{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .animated li{
+          
+            /* border: 2px solid red; */
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            animation: move 10s  infinite ease-in;
+            bottom: -200px;
+          
+        }
+
+        @keyframes move {
+            0%{
+                transform: translateY(0px);
+                opacity: 1;
+
+            }
+
+            100%{
+                transform: translateY(-800px);
+                opacity: 0;
+            }
+        }
+
+        .animated li:nth-child(1){
+            width: 100px;
+            height: 100px;
+            left: 2%;
+        }
+
+        .animated li:nth-child(2){
+            width: 150px;
+            height: 150px;
+            left: 20%;
+            animation-delay: 0.8s;
+            animation-duration: 3s;
+
+
+        }
+
+        .animated li:nth-child(3){
+            width: 200px;
+            height: 200px;
+            left: 40%;
+            animation-delay: 0.3s;
+
+        }
+
+        .animated li:nth-child(4){
+            width: 50px;
+            height: 50px;
+            left: 60%;
+            animation-delay: 0.5s;
+
+        }
+
+        
+        .animated li:nth-child(5){
+            width: 120px;
+            height: 120px;
+            left: 80%;
+            animation-delay: 0;
+            background-color: red;
+            animation-duration: 2s;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="main">
+<ul class="animated">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+    </div>
+</body>
+</html>
