@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        input {
+            font-size: 30px;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" onkeyup="demo(1)" id="inp">
+    <span>onkeyup</span>
+    <input type="text" onkeydown="demo(2)" id="inp2">
+    <span>onkeydown</span>
+
+    <input type="text" onkeypress="demo(3)" id="inp3">
+    <span>onkeypress</span>
+    <h1 id="heading">dfdsgdsgds</h1>
+
+
+
+    <script>
+        var inp = document.getElementById('inp');
+
+        var inp2 = document.getElementById('inp2');
+        var inp3 = document.getElementById('inp3');
+        var heading = document.getElementById('heading');
+        var a=20
+
+        function demo(num) {
+            if (num == 1) {
+            inp.value= heading.innerText
+            } else if (num == 2) {
+                heading.innerText = inp2.value
+
+            } else {
+                heading.innerText = inp3.value
+
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

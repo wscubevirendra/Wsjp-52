@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="box">0</h1>
+    <button onclick="inc()">+</button>
+    <button onclick="dec()">-</button>
+
+    <script>
+        var box = document.getElementById('box')
+
+        count = 0;
+        function inc() {
+            if (count == 10) {
+                return
+            }else{
+                count++
+                box.innerText = count
+            }
+           
+        }
+
+
+        function dec() {
+            if (count == 0) {
+                return
+            } else {
+                count--
+                box.innerText = count
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

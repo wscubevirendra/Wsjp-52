@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+    <style>
+        .parent {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 4px solid green;
+            font-size: 40px;
+        }
+
+        button {
+            font-size: 30px;
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="parent">
+        <div class="box">
+            <img src="https://picsum.photos/200/300?random=1">
+        </div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+
+
+        <button onclick="shift()">Next</button>
+        <button onclick="shiftBack()">Back</button>
+    </div>
+
+    <script>
+        var boxes = document.getElementsByClassName('box')
+
+        index = 0
+        function shift() {
+            if (boxes.length - 1 == index) {
+                return
+
+            }
+            boxes[index + 1].innerHTML = boxes[index].innerHTML
+
+            boxes[index].innerHTML = ""
+            index++
+        }
+
+        function shiftBack() {
+            if (index == 0) return
+            boxes[index - 1].innerHTML = boxes[index].innerHTML;
+            boxes[index].innerHTML = ""
+            index--
+        }
+    </script>
+
+</body>
+
+</html>

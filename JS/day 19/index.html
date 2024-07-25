@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        #box {
+            width: 400px;
+            height: 300px;
+            border: 6px double green;
+            margin: auto;
+        }
+
+        .demo {
+            background-color: red;
+            text-align: center;
+            color: white;
+            font-size: 50px;
+        }
+
+        .h1 {
+            color: red;
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        WSCube Tech
+    </div>
+ 
+    <button onclick="BgChange()">Bg-Change</button>
+
+
+    <script>
+        var box = document.getElementById('box');
+        var heading = document.getElementById('heading');
+
+
+
+        function BgChange() {
+            box.classList.toggle('demo')
+    
+        }
+
+       
+
+    </script>
+</body>
+
+</html>

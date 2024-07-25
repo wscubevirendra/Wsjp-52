@@ -1,0 +1,74 @@
+<html>
+<script>
+    // for (var i = 1; i <= 10; i++) {
+    //     console.log(i)
+    // }
+
+    // var i=1;
+    // while(i<=10){
+    //     console.log(i)
+    //     i++
+    // }
+
+    // var i = 10;
+    // while (i >= 1) {
+    // //    console.log('number print'+' '+i+ ' '+   '10 to 1')
+    //    console.log(`number print ${i} from  10 to 1`)
+    //     i--
+    // }
+
+
+    // var i = Number(prompt('number'));
+    // sum = 1;
+
+    // while (i >= 1) {
+    //     sum *= i  //sum=sum+i
+    //     i--
+    // }
+
+    // console.log(sum)
+
+    // var i = 11;
+    // do {
+    //     console.log(i)
+    //    //11
+    // }while(i<=10)
+
+    // //11<10
+
+
+    // for (var i = 11; i <= 10; i++) {
+    //     //11<=10
+    //     console.log(i)
+    // }
+
+
+    for (var i = 2; i <= 11; i++) {
+        var isPrime = true;
+        //2
+        //3
+        //4
+        //5
+        //6
+        //7
+        //8
+        for (var n = 2; n < i; n++) {
+            //2,3,4,5,6,7
+            if (i % n == 0) {
+                //5%2
+                //5%3/
+                //5%4
+                isPrime = false;
+            }
+        }
+
+
+        if (isPrime == true) {
+        console.log(`${i} is Prime number`)
+        }
+    }
+
+
+</script>
+
+</html>
