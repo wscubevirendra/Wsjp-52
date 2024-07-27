@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+    <style>
+        * {
+            cursor: none;
+        }
+
+        #box {
+            width: 70px;
+            height: 70px;
+            background-color: indianred;
+            border-radius: 50%;
+         /* filter: blur(10px); */
+            position: fixed;
+            top: 0;
+            left: 0;
+            
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+
+    <script>
+        var box = document.querySelector("#box")
+        document.addEventListener(
+            'mousemove',
+            function (e) {
+                box.style.top = e.clientY + "px"
+                box.style.left = e.clientX + "px"
+            }
+        )
+
+        document.addEventListener(
+            "contextmenu",
+            function (e) {
+                e.preventDefault()
+            }
+        )
+
+        document.addEventListener('keydown', function (e) {
+            console.log(e)
+            if (e.shiftKey == true && e.ctrlKey == true && e.key == "I") {
+                e.preventDefault();
+            }
+        });
+
+
+
+    </script>
+
+</body>
+
+</html>
