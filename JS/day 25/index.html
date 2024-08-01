@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="display">0</h1>
+    <button id="btn1">start</button>
+    <button disabled="true" id="btn2">Stop</button>
+    <button disabled="true" id="btn3">reset</button>
+    <script>
+        var start = document.querySelector('#btn1');
+        var stop = document.querySelector('#btn2');
+        var reset = document.querySelector('#btn3');
+        var display = document.querySelector('#display');
+
+        count = 10;
+        start.addEventListener(
+            'click',
+            function () {
+                myTimingFunc = setInterval(
+                    function () {
+                        count++
+                        display.innerText = count;
+                        start.disabled = true
+                        stop.disabled = false
+                        reset.disabled = false
+
+                    }, 1000
+                )
+            }
+        )
+
+        stop.addEventListener(
+            'click',
+            function () {
+                clearInterval(myTimingFunc)
+                start.disabled=false
+            }
+        )
+
+
+        reset.addEventListener(
+            'click',
+            function(){
+                clearInterval(myTimingFunc)
+                count=0;
+                display.innerText = 0;
+            }
+        )
+    </script>
+
+</body>
+
+</html>
