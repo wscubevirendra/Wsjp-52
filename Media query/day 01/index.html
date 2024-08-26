@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div>Logo</div>
+            <div id="bars">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+                <li>Gallery</li>
+            </ul>
+
+        </div>
+
+    </header>
+    <h1>BreakPoint Layout</h1>
+    <div class="container">
+
+        <div class="item">
+            <img src="https://picsum.photos/200/300?random=1">
+
+        </div>
+        <div class="item">
+            <img src="https://picsum.photos/200/300?random=2">
+
+        </div>
+        <div class="item">
+            <img src="https://picsum.photos/200/300?random=3">
+
+        </div>
+        <div class="item">
+            <img src="https://picsum.photos/200/300?random=4">
+
+        </div>
+    </div>
+
+    <script>
+        const bars = document.querySelector('#bars');
+        const navbar = document.querySelector('ul');
+
+        bars.addEventListener(
+            'click',
+            function () {
+                bars.children[0].classList.toggle("fa-bars")
+                bars.children[0].classList.toggle("fa-times")
+                navbar.classList.toggle('open')
+            }
+        )
+    </script>
+</body>
+
+</html>

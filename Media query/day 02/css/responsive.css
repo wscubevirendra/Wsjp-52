@@ -1,0 +1,64 @@
+@media only screen and (min-width:992px) {
+    #bars {
+        display: none;
+    }
+
+    .overlay-container {
+        display: none;
+    }
+
+    .top-section-menu-bar {
+        width: 100%;
+        height: 90px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: white;
+        visibility: hidden;
+        opacity: 0;
+        transition: 500ms;
+        z-index: -1;
+    }
+
+    .stick .top-section-menu-bar {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .stick nav{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+ 
+}
+
+
+
+@media only screen and (min-width:0px) and (max-width:992px) {
+    .top-container {
+        display: none;
+    }
+
+    nav ul {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        color: #fff;
+        font-size: 13px;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        flex-direction: column;
+        transition: 0.5s;
+
+    }
+
+    nav ul li {
+        padding: 10px 22px 10px 15px;
+        font-weight: bold;
+    }
+}

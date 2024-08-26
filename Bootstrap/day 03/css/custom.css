@@ -1,0 +1,7 @@
+.carousel-item img{
+    height: 500px;
+}
+
+.row div{
+    border: 1px solid red;
+}

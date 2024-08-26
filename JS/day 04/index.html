@@ -51,18 +51,25 @@
 // }
 
 
-var unit=200
 
 
-if(unit<=100){
-    //120<=100
-console.log("Free")
-}else if (unit>100 && unit<=150){
-    //120>100--true && 120<=150--true ==true
-    console.log(unit*10)
-}else{
-    console.log(unit*20)
+
+let principal = 1000; // Principal amount
+let rate = 5; // Rate of interest
+let time = 0.5; // Time period in years (6 months)
+let discount = 10; // Discount percentage for short periods
+
+// Calculate the simple interest
+let interest = (principal * rate * time) / 100;
+
+// Apply discount if the time is less than or equal to 1 year (short period)
+if (time <= 1) {
+    interest = interest - (interest * (discount / 100));
+} else {
+    console.log("No discount applied as the time period is more than 1 year.");
 }
+
+console.log("Calculated Interest:", interest);
 
 
 
