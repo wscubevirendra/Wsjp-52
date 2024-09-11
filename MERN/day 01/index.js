@@ -1,9 +1,7 @@
-var generator = require('generate-password');
+// const add= require('./calc')
+// const {add,sub,multi,division}=require('./calc')
 
-var password = generator.generate({
-	length: 10,
-	numbers: true
-});
+import {add,sub,multi} from './calc.js'
 
-// 'uEyMTw32v9'
-console.log(password);
+console.log(add(20,100))
+console.log(sub(20,100))

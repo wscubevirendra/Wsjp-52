@@ -1,0 +1,14 @@
+ul li {
+    list-style: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 2px;
+    position: relative;
+}
+
+.deletebtn{
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+}

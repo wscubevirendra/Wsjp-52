@@ -1,25 +1,36 @@
 <script>
-    const Oldstudent = [
-        {
-            name: "arvind",
-            age: 23
-        },
-        {
-            name: 'kuldeep',
-            age: 18
-        },
-        {
-            name: "anurag",
-            age: 20
-        }
-    ]
+    // const Oldstudent = [
+    //     {
+    //         name: "arvind",
+    //         age: 23
+    //     },
+    //     {
+    //         name: 'kuldeep',
+    //         age: 18
+    //     },
+    //     {
+    //         name: "anurag",
+    //         age: 20
+    //     }
+    // ]
 
-    const Allstudent = [...Oldstudent, {
-        name: "devendra",
-        age: "40"
-    }]
-    console.log(Oldstudent)
-    console.log(Allstudent)
+    // const Allstudent = [...Oldstudent, {
+    //     name: "devendra",
+    //     age: "40"
+    // }]
+    // console.log(Oldstudent)
+    // console.log(Allstudent)
 
+    newarr = []
+
+    function handler(value) {
+        newarr.push(value)
+    }
+
+    handler("gajendra")
+    handler("rahul")
+    handler("vidhi")
+
+    console.log(newarr)
 
 </script>
