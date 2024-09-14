@@ -3,9 +3,11 @@ import React from 'react'
 export default function Input(props) {
 
   function getItem(e) {
-    if (e.key == "Enter") {
-      props.setItemHandler(e.target.value)
-      e.target.value = ""
+    if (e.target.value != "") {
+      if (e.key == "Enter") {
+        props.setItemHandler(e.target.value)
+        e.target.value = ""
+      }
     }
   }
 

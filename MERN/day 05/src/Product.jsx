@@ -1,8 +1,23 @@
-import React from 'react'
-import data from './data/productData'
+import React, { useEffect, useState } from 'react'
+
 
 
 function Product() {
+    const [data, setData] = useState([])
+
+    const getProduct = async () => {
+        const responce = await fetch('https://dummyjson.com/product');
+        const data = await responce.json()
+        setData(data.products)
+    }
+
+
+    useEffect(
+        () => {
+            getProduct()
+        },
+        []
+    )
 
     return (
         <div className='container'>

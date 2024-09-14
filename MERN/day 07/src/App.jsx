@@ -10,12 +10,27 @@ export default function App() {
     setItem([...Item, value])
   }
 
+  function deleteItem(indexNumber) {
+    const newArr = Item.filter(
+      (data, index) => {
+        //index == indexNumber ? false : true
+        if (index == indexNumber) {
+          return false
+        } else {
+          return true
+        }
+      }
+    )
+
+  
+    setItem(newArr)
+  }
+
 
   return (
     <div className='w-50 border  mx-auto p-2'>
       <Input setItemHandler={setItemHandler} />
-     
-      <Display data={Item} />
+      <Display data={Item} deleteItem={deleteItem} />
     </div>
   )
 }

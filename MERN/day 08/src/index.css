@@ -1,0 +1,9 @@
+.box{
+  width: 800px;
+  margin: auto;
+  display: flex;
+  gap: 100px;
+}
+.box button{
+  padding: 10px;
+}
