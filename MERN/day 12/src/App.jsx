@@ -7,7 +7,7 @@ export default function App() {
   const routers = createBrowserRouter(
     [
       {
-        path: '/',
+        path: '/:categorie_slug?',
         element: <Listing />
       },
       {
