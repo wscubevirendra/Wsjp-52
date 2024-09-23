@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 
 export default function Listing() {
@@ -9,31 +9,51 @@ export default function Listing() {
   const [loading, setLoading] = useState(true);
   const [ProductName, setProductName] = useState("")
   const { categorie_slug } = useParams();
+  let limit = 10;
+  const [totalpages, settotalPages] = useState(0)
+  const [currentPage, setcurrentPage] = useState(0)
+  const [SearchParams, setSearchParams] = useSearchParams(0)
 
+  useEffect(
+    () => {
+      const query = new URLSearchParams()
+      query.append('skip', currentPage)
+      query.append('limit', limit)
+      setSearchParams(query)
 
-  const getProducts = () => {
-    setLoading(false)
-    axios.get('https://dummyjson.com/product')
-      .then(
-        (succes) => {
-          //resolve
-          setProducts(succes.data.products)
+      axios.get(`https://dummyjson.com/products?skip=${limit * currentPage}&limit=${limit}`)
+        .then(
+          (succes) => {
+            //resolve
+            setProducts(succes.data.products)
+          }
+        )
+        .catch(
+          (err) => {
+            console.log(err)
+            //rejection
+          }
+        ).finally(
+          () => {
+            setLoading(true)
+          }
+        )
 
+    }
+    ,
+    [currentPage]
+  )
 
-        }
-      )
-      .catch(
-        (err) => {
-          console.log(err)
-          //rejection
-
-        }
-      ).finally(
-        () => {
-          setLoading(true)
-        }
-      )
+  const pagination = [];
+  for (let i = 0; i < totalpages; i++) {
+    pagination.push(<li onClick={() => {
+      setcurrentPage(i)
+    }} className="flex cursor-pointer items-center justify-center px-3 h-8 m text-gray-500 bg-white border  border-gray-300  hover:bg-gray-100 hover:text-gray-700">
+      {i + 1}
+    </li>)
   }
+
+
 
   const getcategories = () => {
     axios.get("https://dummyjson.com/products/categories")
@@ -51,7 +71,26 @@ export default function Listing() {
 
   useEffect(
     () => {
-      getProducts()
+      axios.get('https://dummyjson.com/product')
+        .then(
+          (succes) => {
+            //resolve
+            setProducts(succes.data.products)
+
+
+          }
+        )
+        .catch(
+          (err) => {
+            console.log(err)
+            //rejection
+
+          }
+        ).finally(
+          () => {
+            setLoading(true)
+          }
+        )
       getcategories()
     },
     []
@@ -87,8 +126,29 @@ export default function Listing() {
   useEffect(
     () => {
       if (categorie_slug == null) {
+        setLoading(false)
+        axios.get('https://dummyjson.com/product')
+          .then(
+            (succes) => {
+              //resolve
+              setProducts(succes.data.products)
+              settotalPages(Math.ceil(succes.data.total / limit))
+            }
+          )
+          .catch(
+            (err) => {
+              console.log(err)
+              //rejection
 
-        getProducts()
+            }
+          ).finally(
+            () => {
+              setLoading(true)
+            }
+          )
+
+
+
       } else {
         axios.get(`https://dummyjson.com/products/category/${categorie_slug}`)
           .then(
@@ -96,6 +156,8 @@ export default function Listing() {
               console.log(succes)
               //resolve
               setProducts(succes.data.products)
+              settotalPages(Math.ceil(succes.data.total / limit))
+
             }
           )
           .catch(
@@ -138,8 +200,13 @@ export default function Listing() {
       </div>
       <div className="mx-auto col-span-3  px-4 py-8 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Products</h2>
+        <ul className='flex'>
+          {
+            pagination
+          }
+        </ul>
         <input
-        disabled={categorie_slug==null ? false : true}
+          disabled={categorie_slug == null ? false : true}
           onChange={(e) => {
             setProductName(e.target.value)
           }}
