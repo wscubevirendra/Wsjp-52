@@ -1,0 +1,25 @@
+<script>
+    const products = [
+        {
+            id: "1",
+            name: 'car'
+        },
+        {
+            id: "2",
+            name: 'bike'
+        }
+        ,
+        {
+            id: "3",
+            name: 'beauty'
+        }
+    ]
+
+    const check = products.find(
+        (data) => {
+            return data.id == 5
+        }
+    )
+
+    console.log(check)
+</script>

@@ -1,13 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import A from './A.jsx'
 import './index.css'
-import Maincontext from './Maincontext.jsx'
+import MainContext from './MainContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Maincontext>
-      <App />
-    </Maincontext>
+    <MainContext>
+      <A />
+    </MainContext>
   </StrictMode>,
 )

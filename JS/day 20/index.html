@@ -23,7 +23,6 @@
             flex-direction: column;
             justify-content: space-around;
             padding: 10px;
-
         }
 
         input {
@@ -63,7 +62,7 @@
         <span>Text-Color</span>
         <input type="color" onchange="textChangeHandler(this.value)">
         <button onclick="fsChangeHandler(1)">+</button>
-        <input id="fsvalue" type="text" value="16">
+        <input  id="fsvalue" type="text" value="16">
         <button onclick="fsChangeHandler(2)">-</button>
 
     </div>
@@ -95,7 +94,6 @@
             }else{
                 if(count==16) return
                 count--
-
             }
 
             container.style.fontSize=count+"px"

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 1000px;
+            height: 80vh;
+            /* border: 2px solid red; */
+            margin: 20px auto;
+            display: flex;
+            gap: 50px;
+            padding: 10px;
+        }
+
+        .box {
+            width: 45%;
+            height: 100%;
+            border: 2px double green;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 10px;
+
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="color"] {
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+        }
+
+        .setbg {
+            display: flex;
+            gap: 20px;
+        }
+
+        .setbg input {
+            width: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<div class="container">
+    <div class="box">
+        <input onkeyup="getValues(this,0)" class="inputs" type="text" name="" id="">
+        <textarea onkeyup="getValues(this,1)" class="inputs" name="" id=""></textarea>
+        <input onkeyup="getValues(this,2)" class="inputs" type="text" name="" id="">
+    </div>
+    <div class="box">
+        <h1 class="output">From :-</h1>
+        <p class="output">Msg:-</p>
+        <h1 class="output">To:-</h1>
+    </div>
+</div>
+<div class="setbg">
+    <input onchange="bgChangeHandler(this.value)" type="color">
+    <button onclick="inc(1)">+</button>
+    <input id="dname" value="16" type="text" name="" id="">
+    <button onclick="inc(2)">-</button>
+</div>
+<script>
+    var inputs = document.getElementsByClassName('inputs');
+    var output = document.getElementsByClassName('output');
+    var box = document.getElementsByClassName('box');
+    var count = 16;
+
+    function getValues(data, index) {
+        output[index].innerText = data.value;
+    }
+
+    function bgChangeHandler(value) {
+        box[1].style.backgroundColor = value;
+    }
+
+    function inc(flag) {
+        if (flag == 1) {
+            count++;
+            box[1].style.fontSize = count + "px"
+        } else { 
+            count--;
+            box[1].style.fontSize = count + "px"
+        }
+    }
+
+</script>
+
+</html>
