@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const [users, setusers] = useState([]);
+  const [userDetail, setuserDetail] = useState(null);
 
 
   const toastMsg = (msg, flag) => {
@@ -41,23 +42,35 @@ export default function App() {
       password: e.target.password.value,
       contact: e.target.contact.value,
     }
-    axios.post("http://localhost:5000/user/register", data)
-      .then(
-        (succes) => {
-          if (succes.data.status == 1) {
-            console.log(succes)
-            fetchUser()
-          }
-          toastMsg(succes.data.msg, succes.data.status)
+    let responce;
+    if (userDetail == null) {
+      responce = axios.post("http://localhost:5000/user/register", data)
+    } else {
+      responce = axios.put(`http://localhost:5000/user/update/${userDetail._id}`, data)
+    }
+
+
+    responce.then(
+      (succes) => {
+        if (succes.data.status == 1) {
+          console.log(succes)
+          e.target.reset()
+          fetchUser()
+          setuserDetail(null)
 
         }
+        toastMsg(succes.data.msg, succes.data.status)
 
-      ).catch(
-        (error) => {
-          toastMsg("Internal Server Error", 0)
+      }
 
-        }
-      )
+    ).catch(
+      (error) => {
+        console.log(error)
+
+        toastMsg("Internal Server Error", 0)
+
+      }
+    )
 
   }
 
@@ -99,8 +112,8 @@ export default function App() {
   return (
     <>
       <h1 className='w-full py-2 text-[red] bg-black mx-auto text-center '>User DashBoard</h1>
-      <div className='max-w-[1200px] mx-auto grid grid-cols-6'>
-        <div className="relative col-span-4">
+      <div className='max-w-[1200px] mx-auto grid grid-cols-8'>
+        <div className="relative col-span-6">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
@@ -146,6 +159,7 @@ export default function App() {
                         </td>
                         <td className="px-6 py-4">
                           <button onClick={() => deleteHandler(data._id)} type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Delete</button>
+                          <button onClick={() => setuserDetail(data)} type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
                         </td>
                       </tr>
                     )
@@ -156,7 +170,7 @@ export default function App() {
             </tbody>
           </table>
         </div>
-        <RegisterUser submitHandler={submitHandler} />
+        <RegisterUser userDetail={userDetail} submitHandler={submitHandler} />
       </div>
 
     </>
@@ -166,7 +180,7 @@ export default function App() {
 
 
 
-function RegisterUser({ submitHandler }) {
+function RegisterUser({ submitHandler, userDetail }) {
   return (
     <div className="col-span-2 w-full mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl text-center font-bold mb-6">Register</h2>
@@ -180,6 +194,7 @@ function RegisterUser({ submitHandler }) {
             type="text"
             id="name"
             name="name"
+            defaultValue={userDetail?.name}
 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your name"
@@ -194,6 +209,7 @@ function RegisterUser({ submitHandler }) {
             type="email"
             id="email"
             name="email"
+            defaultValue={userDetail?.email}
 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your email"
@@ -207,6 +223,8 @@ function RegisterUser({ submitHandler }) {
             type="tel"
             id="contact"
             name="contact"
+            defaultValue={userDetail?.contact}
+
 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your contact"
@@ -221,6 +239,8 @@ function RegisterUser({ submitHandler }) {
             type="password"
             id="password"
             name="password"
+            defaultValue={userDetail?.password}
+
 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your password"

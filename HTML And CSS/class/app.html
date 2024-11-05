@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // class Person {
+        //     constructor(name, age,address) {
+        //         this.name = name;
+        //         this.age = age;
+        //     }
+        //     details() {
+        //         console.log(`I am ${this.name} and I am ${this.age} years old`);
+        //     }
+        //     adderess() {
+        //         console.log(address);
+
+        //     }
+        // }
+
+        // const person1 = new Person('Gajendra', 22);
+        // const person2 = new Person('kunal', 22);
+        // person1.details();
+        // person2.details();
+
+        //Promise create
+        const newPromise = new Promise(
+            (resolve, reject) => {
+                let succes = false;
+                if (succes == true) {
+                    resolve("Data succesfully fetch")
+
+                } else {
+                    reject("Data not fetch")
+                }
+
+            }
+        )
+
+//Promise Handling
+        newPromise.then(
+            (succes) => {
+                console.log("succes:-" + succes)
+            }
+
+        ).catch(
+            (error) => {
+                console.log("Error:-" + error)
+
+            }
+        )
+
+
+
+
+    </script>
+
+</body>
+
+</html>
