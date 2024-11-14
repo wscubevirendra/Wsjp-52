@@ -168,7 +168,7 @@ export default function View() {
                       >
                         {cat.name}
                       </th>
-                      <td className="px-6 py-4">{cat.colorCode}</td>
+                      <td style={{ backgroundColor: cat.colorCode }} className="px-6 py-4">{cat.colorCode}</td>
                      
                       <td className="px-6 py-4">
                         {

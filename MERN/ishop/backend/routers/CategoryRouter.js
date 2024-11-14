@@ -1,5 +1,5 @@
 const express = require("express");
-const CategoryController = require('../controllers/ColorController')
+const CategoryController = require('../controllers/CategoryController')
 const CategoryRouter = express.Router();
 const fileupload = require("express-fileupload")
 

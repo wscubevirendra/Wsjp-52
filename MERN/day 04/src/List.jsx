@@ -18,7 +18,7 @@ function List(props) {
 
 
     return (
-        <div className="box">
+        <div style={{ background: toggle == true ? "red" : "green" ,color:"white"}} className="box">
             <button onClick={toggleHandler}>
                 {
                     toggle == true ? 'On' : 'off'
@@ -27,9 +27,8 @@ function List(props) {
             <button disabled={count >= 10 ? true : false} onClick={inc}>+</button>
             <h1>{count}</h1>
             <button disabled={count == 0 ? true : false} onClick={dec}>-</button>
-            <h1>Rs:-{count * props.prize}</h1>
+            <h1>₹:-{count * props.prize}</h1>
             <input type="checkbox" />
-
         </div>
 
     )

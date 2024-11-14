@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RiDashboard2Fill } from "react-icons/ri";
 import { BiCategoryAlt } from "react-icons/bi";
 import { TbCategoryPlus } from "react-icons/tb";
 import { FaProductHunt } from "react-icons/fa6";
-
-
-
-
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 
 export default function SideMenu() {
+    const navigate = useNavigate()
+    const admin = useSelector((state) => state.admin.data)
+
+    useEffect(
+        () => {
+            if (admin == null) {
+                navigate('/admin/login')
+            }
+        },
+        [admin]
+    )
+
+
     const menu = [
         {
             url: "/admin",

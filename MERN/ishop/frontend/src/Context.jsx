@@ -7,9 +7,11 @@ const MainContext = createContext()
 export default function Context(props) {
     const [category, Setcategory] = useState([]);
     const [color, Setcolor] = useState([]);
+    const [product, Setproduct] = useState([]);
     const API_BASE_URL = "http://localhost:5000";
     const CATEGORY_URL = "/category";
     const COLOR_URL = "/color";
+    const PRODUCT_URL = "/product";
     const notify = (msg, flag) => toast(msg, { type: flag == true ? 'success' : 'error' });
 
     const fetchCategory = (category_id = null) => {
@@ -25,7 +27,7 @@ export default function Context(props) {
             }
         ).catch(
             (error) => {
-                console.log(error)
+                Setcategory([]);
             }
         )
 
@@ -45,7 +47,26 @@ export default function Context(props) {
             }
         ).catch(
             (error) => {
-                console.log(error)
+                Setcolor([]);
+
+            }
+        )
+
+
+    }
+
+    const fetchProduct = (product_id = null) => {
+        let API = API_BASE_URL + PRODUCT_URL
+        if (product_id != null) {
+            API += `/${product_id}`
+        }
+        axios.get(API).then(
+            (succes) => {
+                Setproduct(succes.data.Product)
+            }
+        ).catch(
+            (error) => {
+                Setproduct([]);
             }
         )
 
@@ -55,8 +76,9 @@ export default function Context(props) {
 
 
 
+
     return (
-        <MainContext.Provider value={{ notify, API_BASE_URL, CATEGORY_URL, fetchCategory, category, COLOR_URL, fetchColor,color }}>
+        <MainContext.Provider value={{ notify, API_BASE_URL, CATEGORY_URL, fetchCategory, category, COLOR_URL, fetchColor, color, PRODUCT_URL ,product,fetchProduct}}>
             {props.children}
             <ToastContainer />
         </MainContext.Provider>

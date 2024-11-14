@@ -14,6 +14,10 @@ import ColorView from './Pages/admin/color/View'
 import ColorEdit from './Pages/admin/color/Edit'
 import ProductAdd from './Pages/admin/product/Add'
 import ProductView from './Pages/admin/product/View'
+import ProductMultipleImages from './Pages/admin/product/MultipleImages'
+import MultipleImages from './Pages/admin/product/MultipleImages'
+import Login from './Pages/admin/Login'
+
 
 
 export default function App() {
@@ -48,38 +52,47 @@ export default function App() {
             element: <Deshboard />
           },
           {
-            path: "/admin/category/add",
+            path: "category/add",
             element: <CategoryAdd />
           }, {
-            path: "/admin/category",
+            path: "category",
             element: <CategoryView />
           },
           {
-            path: "/admin/category/edit/:category_id",
+            path: "category/edit/:category_id",
             element: <CategoryEdit />
           },
           {
-            path: "/admin/color/add",
+            path: "color/add",
             element: <ColorAdd />
           }, {
-            path: "/admin/color",
+            path: "color",
             element: <ColorView />
           },
           {
-            path: "/admin/color/edit/:color_id",
+            path: "color/edit/:color_id",
             element: <ColorEdit />
           }, {
-            path: "/admin/product",
+            path: "product",
             element: <ProductView />
           }, {
-            path: "/admin/product/add",
+            path: "product/add",
             element: <ProductAdd />
+          }
+          , {
+            path: "product/multiple-image/:product_id",
+            element: <MultipleImages />
           }
         ]
 
 
 
+      },
+      {
+        path: "/admin/login",
+        element: <Login />
       }
+
 
     ]
   )

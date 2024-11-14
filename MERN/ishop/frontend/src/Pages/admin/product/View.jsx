@@ -1,7 +1,90 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import { MainContext } from '../../../Context';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import SwitchButton from '../../../Components/admin/SwitchButton';
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { RiGalleryFill } from "react-icons/ri";
+
+
+
+
+
 
 export default function View() {
+  const { fetchCategory, category, API_BASE_URL, CATEGORY_URL, notify, PRODUCT_URL, product, fetchProduct } = useContext(MainContext)
+
+
+  const StatusHandler = (id, flag) => {
+    axios.patch(API_BASE_URL + PRODUCT_URL + "/status-update", { id, flag }).then(
+      (succss) => {
+        notify(succss.data.msg, succss.data.status)
+        if (succss.data.status == 1) {
+          fetchProduct()
+        }
+
+      }
+    ).catch(
+      (error) => {
+        notify("Internal Server Error", 0)
+      }
+    )
+
+  }
+
+  const categorydeleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure for Category delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+
+        axios.delete(API_BASE_URL + CATEGORY_URL + `/delete/${id}`).then(
+          (succss) => {
+            notify(succss.data.msg, succss.data.status)
+            if (succss.data.msg == 1) {
+              fetchCategory()
+            }
+
+          }
+        ).catch(
+          (error) => {
+            notify("Internal Server Error", 0)
+          }
+        )
+
+
+
+      }
+    });
+
+
+
+
+  }
+
+  useEffect(
+    () => {
+      fetchProduct()
+    },
+    []
+  )
+
+
+
+
   return (
     <div className=' shadow bg-white p-4'>
       <div className='flex  justify-between '>
@@ -45,15 +128,15 @@ export default function View() {
                   href="#"
                   className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 "
                 >
-                  Product
+                  Category
                 </a>
               </div>
             </li>
-           
+
           </ol>
         </nav>
         <div>
-          <Link to="/admin/product/add" class="px-6 my-6 py-2 text-md font-semibold text-center text-white transition duration-300 rounded-lg hover:from-purple-600 hover:to-pink-600 ease bg-gradient-to-br from-purple-500 to-pink-500 md:w-auto">
+          <Link to="/admin/product/add" className="px-6 my-6 py-2 text-md font-semibold text-center text-white transition duration-300 rounded-lg hover:from-purple-600 hover:to-pink-600 ease bg-gradient-to-br from-purple-500 to-pink-500 md:w-auto">
             Add +
           </Link>
         </div>
@@ -67,50 +150,91 @@ export default function View() {
                 Product name
               </th>
               <th scope="col" className="px-6 py-3">
-                Color
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3">
                 Price
+              </th>
+              <th scope="col" className="px-6 py-3">
+                image
+              </th>
+              <th scope="col" className="px-6 py-3">
+                category
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Colors
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-            </tr>
-            <tr className="bg-white border-b">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="px-6 py-4">White</td>
-              <td className="px-6 py-4">Laptop PC</td>
-              <td className="px-6 py-4">$1999</td>
-            </tr>
-            <tr className="bg-white">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Magic Mouse 2
-              </th>
-              <td className="px-6 py-4">Black</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$99</td>
-            </tr>
+            {
+              Array.isArray(product)
+              &&
+              product.map(
+                (prod, i) => {
+                  return (
+                    <tr key={i} className="bg-white border-b">
+                      <th
+                        scope="row"
+                        className="py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        Name:- {prod.name}<br />
+                        Slug:- {prod.slug}<br />
+
+                      </th>
+                      <td className=" py-4">
+                        Original Price : {prod.original_price} ₹ <br />
+                        Disc Price : {prod.discount_percentage} ₹ % <br />
+                        Final Price : {prod.final_price} <br />
+                      </td>
+                      <td className=" py-2">
+                        <img width="40" src={API_BASE_URL + "/images/product/" + prod.main_image} alt="" />
+                      </td>
+                      <td className="py-4">
+                        {prod.category_id.name} <br />
+                        {prod.category_id.slug} <br />
+                      </td>
+                      <td className="py-4">
+                        <ul  className='list-disc'>
+                          {
+                            prod.colors.map(
+                              (clr, i) => {
+                                return <li>{clr.name}</li>
+                              }
+                            )
+                          }
+                        </ul>
+                      </td>
+
+                      <td className="px-4 py-4">
+                        <b>Status</b> <SwitchButton isOn={prod.status} toggleSwitch={() => StatusHandler(prod._id, 1)} />
+                        <b>Stock</b> <SwitchButton isOn={prod.stock} toggleSwitch={() => StatusHandler(prod._id, 2)} />
+                        <b>top selling</b> <SwitchButton isOn={prod.top_selling}
+                          toggleSwitch={() => StatusHandler(prod._id, 3)} />
+                      </td>
+                      <td>
+                        <button onClick={() => categorydeleteHandler(prod._id)} className='p-2  bg-blue-700  rounded-md text-white'><MdDelete />
+                        </button>
+                        <Link to={`/admin/category/edit/${prod._id}`}>
+                          <button className='p-2 ml-2  bg-blue-700 rounded-md text-white'><FaEdit />
+                          </button>
+                        </Link>
+                        <Link to={`/admin/product/multiple-image/${prod._id}`}>
+                          <button className='p-2 ml-2  bg-blue-700 rounded-md text-white'><RiGalleryFill />
+                          </button>
+                        </Link>
+
+                      </td>
+
+                    </tr>
+                  )
+                }
+              )
+            }
+
           </tbody>
         </table>
       </div>
