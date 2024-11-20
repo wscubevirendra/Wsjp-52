@@ -1,17 +1,33 @@
 const ProductModel = require("../models/ProductModel")
+const CategoryModel = require("../models/CategoryModel")
 const { generatedcategoryImageName } = require('../helping');
 const { json } = require("express");
 
 
 
 class ProductController {
-    read(id) {
+    read(id, query) {
         return new Promise(
             async (resolve, reject) => {
+                console.log(query)
                 try {
+                    const filterQuery = {};
+                    if (query.category_slug != "null") {
+                        const category = await CategoryModel.findOne({
+                            slug: query.category_slug
+                        })
+                        filterQuery["category_id"]=category._id
+
+                    }
+                    
+                    if(query.product_color != "null"){
+                        filterQuery["colors"]=query.product_color
+                    }
+                
+
                     let Product = null;
                     if (id == null) {
-                        Product = await ProductModel.find().populate(["category_id", "colors"])
+                        Product = await ProductModel.find(filterQuery).populate(["category_id", "colors"]).limit(query.limit)
                     } else {
                         Product = await ProductModel.findById(id)
                     }

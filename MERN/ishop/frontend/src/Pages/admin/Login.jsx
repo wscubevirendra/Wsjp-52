@@ -1,10 +1,39 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import axios from 'axios'
+import { MainContext } from "../../Context";
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import { login } from "../../redux/reducers/Adminslice";
+
 
 const Login = () => {
+  const { notify, API_BASE_URL } = useContext(MainContext)
+  const navigation = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }
     e.preventDefault();
-    // Replace with your login logic
-    console.log("Admin Credentials:");
+    axios.post(API_BASE_URL + "/admin/login", data).then(
+      (responce) => {
+        console.log(responce)
+        notify(responce.data.msg, responce.data.status)
+        if (responce.data.status == 1) {
+          navigation("/admin")
+          dispatch(login({
+            data: responce.data.admin,
+            token:responce.data.token
+          }))
+        }
+      }
+    ).catch(
+      (error) => {
+
+      }
+    )
+
   };
 
   return (

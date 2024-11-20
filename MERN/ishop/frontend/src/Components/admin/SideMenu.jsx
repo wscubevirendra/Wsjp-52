@@ -3,17 +3,41 @@ import { RiDashboard2Fill } from "react-icons/ri";
 import { BiCategoryAlt } from "react-icons/bi";
 import { TbCategoryPlus } from "react-icons/tb";
 import { FaProductHunt } from "react-icons/fa6";
+import { IoIosLogOut } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from '../../redux/reducers/Adminslice';
 
 
 export default function SideMenu() {
     const navigate = useNavigate()
-    const admin = useSelector((state) => state.admin.data)
+    const dispatched = useDispatch()
+    const admin = useSelector((state) => state.admin.data);
 
     useEffect(
         () => {
-            if (admin == null) {
+            const lsAdmin = localStorage.getItem("admin")
+            const lsAdmin_token = localStorage.getItem("admin-token")
+            if (lsAdmin) {
+                dispatched(
+                    login(
+                        {
+                            data: JSON.parse(lsAdmin),
+                            token: lsAdmin_token
+                        }
+                    )
+                )
+            }
+
+        }
+        ,
+        []
+    )
+
+    useEffect(
+        () => {
+            const lsAdmin = localStorage.getItem("admin")
+            if (admin == null && lsAdmin == undefined) {
                 navigate('/admin/login')
             }
         },
@@ -66,6 +90,11 @@ export default function SideMenu() {
                         }
                     )
                 }
+                <li onClick={() => dispatched(logout())} className='flex cursor-pointer  mb-6 items-center gap-4'>
+                    <IoIosLogOut />
+                    <span className=' duration-500 hover:translate-x-1 '>Logout</span>
+                </li>
+
             </ul>
 
         </div>

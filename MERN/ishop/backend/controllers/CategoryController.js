@@ -1,6 +1,7 @@
 const CategoryModel = require("../models/CategoryModel")
 const { generatedcategoryImageName } = require('../helping')
 const { unlinkSync } = require('fs')
+const ProductModel = require("../models/ProductModel")
 
 
 class CategoryController {
@@ -85,18 +86,42 @@ class CategoryController {
                 try {
                     let category = null;
                     if (id == null) {
+                        const data = []
                         category = await CategoryModel.find()
+                        const allpromise = category.map(
+                            async (cat) => {
+                                const productCount = await ProductModel.find(
+                                    { category_id: cat._id }
+                                ).countDocuments()
+                                data.push(
+                                    {
+                                        ...cat.toJSON(),
+                                        productCount
+
+                                    }
+                                )
+
+                            })
+                        await Promise.all(allpromise)
+                        resolve(
+                            {
+                                msg: "Category Find",
+                                status: 1,
+                                category: data
+                            }
+                        )
                     } else {
                         category = await CategoryModel.findById(id)
+                        resolve(
+                            {
+                                msg: "Category Find",
+                                status: 1,
+                                category
+                            }
+                        )
                     }
 
-                    resolve(
-                        {
-                            msg: "Category Find",
-                            status: 1,
-                            category
-                        }
-                    )
+
 
                 } catch (error) {
                     reject(

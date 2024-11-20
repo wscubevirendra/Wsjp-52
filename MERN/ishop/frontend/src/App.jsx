@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { Children, useEffect } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import WebsiteLayout from './Pages/website/Layout'
 import Home from './Pages/website/Home'
@@ -14,13 +14,26 @@ import ColorView from './Pages/admin/color/View'
 import ColorEdit from './Pages/admin/color/Edit'
 import ProductAdd from './Pages/admin/product/Add'
 import ProductView from './Pages/admin/product/View'
-import ProductMultipleImages from './Pages/admin/product/MultipleImages'
+import Cart from './Pages/website/Cart'
+import UserLogin from './Pages/website/Login'
+import Register from './Pages/website/Register'
 import MultipleImages from './Pages/admin/product/MultipleImages'
 import Login from './Pages/admin/Login'
+import { useDispatch } from 'react-redux'
+import { lsCartUpdate } from './redux/reducers/Cartslice'
+useDispatch
 
 
 
 export default function App() {
+  const dispatched = useDispatch()
+  useEffect(
+    () => {
+      dispatched(lsCartUpdate())
+    },
+    []
+  )
+
   const routers = createBrowserRouter(
     [
       {
@@ -28,20 +41,32 @@ export default function App() {
         element: <WebsiteLayout />,
         children: [
           {
-            path: "",
+            path: "/",
             element: <Home />
           },
           {
-            path: "store",
+            path: "store/:category_slug?",
             element: <Store />
           }
           ,
           {
             path: "profile",
             element: <Profile />
+          },
+          {
+            path: "cart",
+            element: <Cart />
           }
         ]
 
+      },
+      {
+        path:"/login",
+        element:<UserLogin/>
+      },
+      {
+        path:"/register",
+        element:<Register/>
       },
       {
         path: "/admin",

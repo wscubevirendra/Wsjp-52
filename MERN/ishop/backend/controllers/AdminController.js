@@ -1,5 +1,5 @@
 const AdminModel = require("../models/AdminModel")
-const { encryptedPassword } = require("../helping")
+const { encryptedPassword, decryptedPassword, adminToken } = require("../helping")
 
 
 class AdminController {
@@ -66,10 +66,40 @@ class AdminController {
         )
     }
 
-    AdminLogin(data) {
+    login(data) {
         return new Promise(
             async (resolve, reject) => {
                 try {
+                    const admin = await AdminModel.findOne({ email: data.email })
+                    if (admin) {
+                        if (data.password == decryptedPassword(admin.password)) {
+                            resolve(
+                                {
+                                    msg: "Login Successfully",
+                                    status: 1,
+                                    admin: { ...admin.toJSON(), password: null },
+                                    token: adminToken(admin.toJSON())
+                                }
+                            )
+                        } else {
+                            reject(
+                                {
+                                    msg: "Incorrect Password",
+                                    status: 0
+                                }
+                            )
+
+                        }
+
+
+                    } else {
+                        reject(
+                            {
+                                msg: "Email Not Exits",
+                                status: 0
+                            }
+                        )
+                    }
 
                 } catch (error) {
                     console.log(error)

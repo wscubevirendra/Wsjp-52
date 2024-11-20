@@ -1,20 +1,26 @@
 const express = require("express");
 const CategoryController = require('../controllers/CategoryController')
 const CategoryRouter = express.Router();
-const fileupload = require("express-fileupload")
+const fileupload = require("express-fileupload");
+const authAdmin = require("../middleware/authAdmin");
 
 
 
 
 CategoryRouter.post(
     "/create",
-    fileupload(
-        {
-            createParentPath: true
-        }
-    )
+    [
+        fileupload(
+            {
+                createParentPath: true
+            }
+        ),
+        authAdmin
+
+    ]
     ,
     (req, res) => {
+        console.log(req)
 
         const result = new CategoryController().create(req.body, req.files?.image_name)
         result.then(
@@ -30,7 +36,6 @@ CategoryRouter.post(
     }
 )
 
-
 CategoryRouter.get("/:id?", (req, res) => {
     const result = new CategoryController().read(req.params.id)
     result.then(
@@ -45,7 +50,6 @@ CategoryRouter.get("/:id?", (req, res) => {
     )
 }
 )
-
 
 CategoryRouter.patch("/status-update/:id", (req, res) => {
     const result = new CategoryController().statusUpdate(req.params.id)

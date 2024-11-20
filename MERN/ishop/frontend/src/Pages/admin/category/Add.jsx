@@ -1,8 +1,10 @@
 import React, { useContext, useRef } from 'react'
 import { MainContext } from '../../../Context';
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 export default function Add() {
+  const token = useSelector((state) => state.admin.token)
   const { notify, API_BASE_URL, CATEGORY_URL } = useContext(MainContext)
   const categoryName = useRef();
   const categorySlug = useRef();
@@ -30,7 +32,14 @@ export default function Add() {
     formdata.append("slug", categorySlug.current.value);
     formdata.append("image_name", e.target.category_img.files[0])
 
-    axios.post(API_BASE_URL + CATEGORY_URL + "/create", formdata).then(
+    axios.post(API_BASE_URL + CATEGORY_URL + "/create",
+      formdata,
+      {
+        headers: {
+          Authorization: token
+        }
+      }
+    ).then(
       (succes) => {
         notify(succes.data.msg, succes.data.status)
         if (succes.data.status == 1) {

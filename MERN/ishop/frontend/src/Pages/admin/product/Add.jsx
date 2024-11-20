@@ -36,7 +36,8 @@ export default function Add() {
     () => {
       fetchCategory()
       fetchColor()
-    }
+    },
+    []
   )
 
   const submitHandler = (e) => {

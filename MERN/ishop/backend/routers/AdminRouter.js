@@ -25,7 +25,7 @@ AdminRouter.post(
 AdminRouter.post(
     "/login",
     (req, res) => {
-        const result = new AdminController().AdminLogin(req.body)
+        const result = new AdminController().login(req.body)
         result.then(
             (success) => {
                 res.send(success)
