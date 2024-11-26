@@ -26,13 +26,12 @@ const adminSchema = new mongoose.Schema(
         },
         contact: {
             type: String,
-            unique: true,
             default:null
         },
         password: {
             type: String,
             required: [true, "Password is required"],
-            minlength: [6, "Password must be at least 6 characters long"],
+            minlength: [7, "Password must be at least 6 characters long"],
         },
         shipping_address: {
             type: [ShippingAddressSchema],

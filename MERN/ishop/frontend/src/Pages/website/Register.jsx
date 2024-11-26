@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import {login} from "../../redux/reducers/Userslice"
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { login } from "../../redux/reducers/Userslice"
 
 
 const Register = () => {
+    const [searchParams, SetsearchParams] = useSearchParams()
+    const [userName, SetuserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
-   const disptached= useDispatch()
+    const disptached = useDispatch()
+    const navigate = useNavigate()
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -21,21 +24,27 @@ const Register = () => {
             return;
         }
         const data = {
+            name: userName,
             email: email,
-            password: password
+            password: password,
+            confirmPassword: confirmPassword
 
         }
 
         // Clear error and process form (e.g., send data to server)
         setError("");
         axios.post("http://localhost:5000/user/register", data).then(
-            (success) => {
-                if (success.data.status == 1)
+            (responce) => {
+                if (responce.data.status == 1)
                     disptached(login({
-                        data: responce.data.User,
+                        data: responce.data.user,
                         token: responce.data.token
                     }))
-
+                if (searchParams.get("ref") === "checkout") {
+                    navigate("/checkout")
+                } else {
+                    navigate("/")
+                }
             }
         ).catch(
             (error) => {
@@ -51,6 +60,23 @@ const Register = () => {
                     Register at <span className="text-blue-500">iShop.com</span>
                 </h1>
                 <form onSubmit={handleRegister}>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="name"
+                            className="block text-gray-700 font-medium mb-2"
+                        >
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={userName}
+                            onChange={(e) => SetuserName(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your Name"
+
+                        />
+                    </div>
                     <div className="mb-4">
                         <label
                             htmlFor="email"
@@ -114,7 +140,7 @@ const Register = () => {
                 </form>
                 <p className="text-center text-gray-600 text-sm mt-4">
                     Already have an account?{" "}
-                    <Link to="/register" className="text-blue-500 hover:underline">
+                    <Link to={`/login?${searchParams.toString()}`} className="text-blue-500 hover:underline">
                         Login
                     </Link>
                 </p>

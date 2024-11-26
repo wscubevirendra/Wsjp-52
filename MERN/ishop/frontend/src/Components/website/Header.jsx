@@ -2,18 +2,23 @@ import React from 'react'
 import { FaRegUser } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { logout } from "../../redux/reducers/Userslice"
 
 
 
 export default function Header() {
   const cart = useSelector((state) => state.cart.data)
   const user = useSelector((state) => state.user)
-  console.log(cart)
+  const dispatched = useDispatch()
+
   return (
     <>
       <div className='bg-[#FFFFFF]  py-3 w-full shadow-md'>
         <div className='max-w-[1200px] text-[#262626] text-[17px] font-[700] mx-auto flex  gap-10 justify-end'>
+          <div>
+            Hii ,{user.data?.name}
+          </div>
           {
             user.data == null ?
               <Link to="/login?ref=header">
@@ -22,7 +27,7 @@ export default function Header() {
                 </div>
               </Link>
               :
-              <div className='flex cursor-pointer justify-center items-center gap-2'>
+              <div onClick={() => dispatched(logout())} className='flex cursor-pointer justify-center items-center gap-2'>
                 Logout
               </div>
 

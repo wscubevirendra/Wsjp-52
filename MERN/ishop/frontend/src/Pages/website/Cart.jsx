@@ -11,18 +11,15 @@ export default function Cart() {
   const cart = useSelector((state) => state.cart)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate();
-  useEffect(
-    () => {
-      if (user) {
-        navigate("/login?ref=checkout")
-      } else {
-        navigate("/checkout")
-        
-      }
 
-    },
-    []
-  )
+  const CheckUserLogin = () => {
+    if (user) {
+      navigate("/login?ref=checkout")
+    } else {
+      navigate("/checkout")
+
+    }
+  }
 
 
 
@@ -158,12 +155,12 @@ export default function Cart() {
                   </dd>
                 </dl>
               </div>
-              <a
-                href="#"
+              <button
+                onClick={CheckUserLogin}
                 className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium bg-blue-600 text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
               >
                 Proceed to Checkout
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -21,12 +21,34 @@ import MultipleImages from './Pages/admin/product/MultipleImages'
 import Login from './Pages/admin/Login'
 import { useDispatch } from 'react-redux'
 import { lsCartUpdate } from './redux/reducers/Cartslice'
-useDispatch
+import { login } from './redux/reducers/Userslice'
+
 
 
 
 export default function App() {
   const dispatched = useDispatch()
+
+  useEffect(
+    () => {
+        const lsUser = localStorage.getItem("user")
+        const lsUser_token = localStorage.getItem("user-token")
+        if (lsUser) {
+            dispatched(
+              login(
+                    {
+                        data: JSON.parse(lsUser),
+                        token: lsUser_token
+                    }
+                )
+            )
+        }
+
+    }
+    ,
+    []
+)
+
   useEffect(
     () => {
       dispatched(lsCartUpdate())

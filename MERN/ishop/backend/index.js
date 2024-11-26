@@ -22,7 +22,6 @@ server.use("/color", ColorRouter);
 server.use("/product",ProductRouter );
 server.use("/admin",AdminRouter );
 server.use("/user",UserRouter );
-console.log(process.env.MONGODB_URL)
 
 
 

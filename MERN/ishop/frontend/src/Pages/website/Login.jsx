@@ -1,14 +1,71 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { login } from "../../redux/reducers/Userslice";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const [searchParams, SetsearchParams] = useSearchParams()
+  const navigate = useNavigate();
+  const disptached = useDispatch();
+  const cart = useSelector((state) => state.cart)
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }
+
+
+    axios.post("http://localhost:5000/user/login", data).then(
+      (responce) => {
+      
+        if (responce.data.status == 1)
+          
+        disptached(login({
+          data: responce.data.user,
+          token: responce.data.token
+        }))
+
+        axios.post("http://localhost:5000/user/move-to-cart/" + responce.data.user._id,
+          {
+            cartData: JSON.stringify(cart.data)
+          }
+        ).then(
+          (succes) => {
+            console.log(succes)
+
+          }
+        ).catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+
+
+
+
+        if (searchParams.get("ref") === "checkout") {
+          navigate("/checkout")
+        } else {
+          navigate("/")
+        }
+      }
+    ).catch(
+      (error) => {
+        console.log(error)
+      }
+    )
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Welcome to <span className="text-blue-500">iShop.com</span>
         </h1>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -19,6 +76,7 @@ const Login = () => {
             <input
               type="email"
               id="email"
+              name="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your email"
             />
@@ -33,6 +91,7 @@ const Login = () => {
             <input
               type="password"
               id="password"
+              name="password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your password"
             />
@@ -46,12 +105,12 @@ const Login = () => {
         </form>
         <p className="text-center text-gray-600 text-sm mt-4">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">
+          <Link to={`/register?${searchParams.toString()}`} className="text-blue-500 hover:underline">
             Sign Up
           </Link>
         </p>
       </div>
-    </div>
+    </div >
   );
 };
 

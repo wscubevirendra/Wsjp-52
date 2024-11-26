@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
 export default function Display(props) {
-   
+    const [toggle, settoggle] = useState(false);
+
+    function toggleHandler() {
+        settoggle(!toggle)
+    }
+    
     return (
         <div className="container mt-4">
             <div>
@@ -11,35 +16,48 @@ export default function Display(props) {
                         props.data.map(
                             (d, i) => {
                                 return (
-                                    <ListItem d={d} key={i} index={i}/>
+                                    // <ListItem d={d} key={i} index={i}/>
+                                    <li onClick={toggleHandler} className={
+                                        `
+                                        ${toggle == true ? 'bg-danger' : 'bg-primary'} list-group-item d-flex cusur- justify-content-between align-items-center
+                                        `
+                                    }
+                                        key={i}>
+                                        {d}
+                                        <button onClick={() => {
+                                            props.deleteItem(i)
+                                        }}
+                                            className="btn btn-danger btn-sm">X</button>
+                                    </li>
                                 )
                             }
                         )
                     }
-
                 </ul>
             </div>
         </div>
     );
 }
-function ListItem({d,index}) {
-    const [toggle, settoggle] = useState(false);
-    function toggleHandler() {
-        settoggle(!toggle)
-    }
-    return (
-        <li onClick={toggleHandler} className={
-            `
-            ${toggle == true ? 'bg-danger' : 'bg-primary'} list-group-item d-flex cusur- justify-content-between align-items-center
-            `
-        }
-            key={index}>
-            {d}
-            <button onClick={() => {
-                props.deleteItem(index)
-            }}
-                className="btn btn-danger btn-sm">X</button>
-        </li>
-    )
-}
+
+
+// function ListItem({d,index}) {
+//     const [toggle, settoggle] = useState(false);
+//     function toggleHandler() {
+//         settoggle(!toggle)
+//     }
+//     return (
+//         <li onClick={toggleHandler} className={
+//             `
+//             ${toggle == true ? 'bg-danger' : 'bg-primary'} list-group-item d-flex cusur- justify-content-between align-items-center
+//             `
+//         }
+//             key={index}>
+//             {d}
+//             <button onClick={() => {
+//                 props.deleteItem(index)
+//             }}
+//                 className="btn btn-danger btn-sm">X</button>
+//         </li>
+//     )
+// }
 
