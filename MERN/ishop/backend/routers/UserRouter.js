@@ -41,7 +41,26 @@ UserRouter.post(
 
 UserRouter.post("/move-to-cart/:user_id",
     (req, res) => {
+        
         const result = new UserController().moveTocart(req.params.user_id, req.body)
+        result.then(
+            (success) => {
+                res.send(success)
+            }
+        ).catch(
+            (error) => {
+                res.send(error)
+
+            }
+        )
+
+
+    })
+
+
+UserRouter.post("/add-to-cart",
+    (req, res) => {
+        const result = new UserController().addToCart(req.body)
         result.then(
             (success) => {
                 res.send(success)

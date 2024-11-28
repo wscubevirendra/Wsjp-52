@@ -22,6 +22,7 @@ import Login from './Pages/admin/Login'
 import { useDispatch } from 'react-redux'
 import { lsCartUpdate } from './redux/reducers/Cartslice'
 import { login } from './redux/reducers/Userslice'
+import Checkout from './Pages/website/Checkout'
 
 
 
@@ -31,23 +32,23 @@ export default function App() {
 
   useEffect(
     () => {
-        const lsUser = localStorage.getItem("user")
-        const lsUser_token = localStorage.getItem("user-token")
-        if (lsUser) {
-            dispatched(
-              login(
-                    {
-                        data: JSON.parse(lsUser),
-                        token: lsUser_token
-                    }
-                )
-            )
-        }
+      const lsUser = localStorage.getItem("user")
+      const lsUser_token = localStorage.getItem("user-token")
+      if (lsUser) {
+        dispatched(
+          login(
+            {
+              data: JSON.parse(lsUser),
+              token: lsUser_token
+            }
+          )
+        )
+      }
 
     }
     ,
     []
-)
+  )
 
   useEffect(
     () => {
@@ -78,17 +79,20 @@ export default function App() {
           {
             path: "cart",
             element: <Cart />
+          }, {
+            path: "checkout",
+            element: <Checkout />
           }
         ]
 
       },
       {
-        path:"/login",
-        element:<UserLogin/>
+        path: "/login",
+        element: <UserLogin />
       },
       {
-        path:"/register",
-        element:<Register/>
+        path: "/register",
+        element: <Register />
       },
       {
         path: "/admin",

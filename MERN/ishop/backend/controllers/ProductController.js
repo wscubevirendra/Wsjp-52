@@ -9,7 +9,7 @@ class ProductController {
     read(id, query) {
         return new Promise(
             async (resolve, reject) => {
-                console.log(query)
+               
                 try {
                     const filterQuery = {};
                     if (query.category_slug != "null") {

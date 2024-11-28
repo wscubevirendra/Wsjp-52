@@ -148,21 +148,21 @@ class UserController {
                             // Increment quantity
                             await CartModel.updateOne(
                                 { _id: existingCartItem._id },
-                                { $inc: { quantity: cd.qty } }
+                                { $inc: { qty: Number(cd.qty) } }
                             );
                         } else {
                             // Insert new item
                             await new CartModel({
                                 user_id,
                                 product_id: cd.product_id,
-                                quantity: cd.qty
+                                qty: cd.qty
                             }).save();
                         }
                     });
-    
+
                     await Promise.all(allPromise);
-    
-                    const latestCart = await CartModel.find({ user_id });
+
+                    const latestCart = await CartModel.find({ user_id }).populate('product_id', '_id original_price final_price');;
                     resolve({
                         latestCart,
                         status: 1,
@@ -180,7 +180,49 @@ class UserController {
             }
         });
     }
-    
+
+
+     addToCart(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const cartExists = await CartModel.findOne({ user_id: data.user_id, product_id: data.product_id });
+                if (cartExists) {
+                    await CartModel.updateOne(
+                        {
+                            _id: cartExists._id
+                        },
+                        {
+                            $inc: {
+                                qty: 1
+                            }
+                        }
+                    )
+                    resolve({
+                        msg: "Cart updated",
+                        status: 1
+                    })
+                } else {
+                    const cart = new CartModel({
+                        user_id: data.user_id,
+                        product_id: data.product_id,
+                        qty: 1
+                    })
+                    await cart.save();
+                    resolve({
+                        msg: "Added to cart",
+                        status: 1
+                    })
+                }
+            }  catch (error) {
+                console.error(error);
+                reject({
+                    msg: "Internal Server Error",
+                    status: 0
+                });
+            }
+        });
+       
+    }
 
 
 

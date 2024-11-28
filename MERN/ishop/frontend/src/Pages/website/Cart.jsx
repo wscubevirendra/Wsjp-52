@@ -9,14 +9,15 @@ import { useNavigate } from 'react-router-dom';
 export default function Cart() {
   const { product, fetchProduct } = useContext(MainContext)
   const cart = useSelector((state) => state.cart)
+  console.log(cart)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate();
 
   const CheckUserLogin = () => {
     if (user) {
-      navigate("/login?ref=checkout")
-    } else {
       navigate("/checkout")
+    } else {
+      navigate("/login?ref=checkout")
 
     }
   }
@@ -51,7 +52,7 @@ export default function Cart() {
                           <a href="#" className="shrink-0 md:order-1">
                             <img
                               className="h-20 w-20"
-                              src={`http://localhost:5000/images/product/${prod.main_image}`}
+                              src={`http://localhost:5000/images/product/${prod?.main_image}`}
                               alt="imac image"
                             />
                           </a>

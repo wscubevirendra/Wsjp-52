@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, { payload }) => {
-            console.log(payload.original_price)
+         
             const product = state.data.find((p) => p.product_id == payload.product_id)
             if (product) {
                 product.qty++
@@ -23,6 +23,15 @@ export const cartSlice = createSlice({
             localStorage.setItem("cartItem", JSON.stringify(state.data));
             localStorage.setItem("total", JSON.stringify(state.total));
             localStorage.setItem("original_price", JSON.stringify(state.original_price));
+        },
+        dbToCart(state, action) {
+          
+            state.data = action.payload.data;
+            state.total = action.payload.total;
+            state.original_price = action.payload.original_price;
+            localStorage.setItem("cartItem", JSON.stringify(state.data));
+            localStorage.setItem("total", state.total);
+            localStorage.setItem("original_price", state.original_price);
         },
         removeToCart: (state, { payload }) => {
 
@@ -46,6 +55,6 @@ export const cartSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeToCart, addQty, lsCartUpdate } = cartSlice.actions
+export const { addToCart, removeToCart, addQty, lsCartUpdate, dbToCart } = cartSlice.actions
 
 export default cartSlice.reducer

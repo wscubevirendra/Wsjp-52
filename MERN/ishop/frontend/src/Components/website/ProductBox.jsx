@@ -1,9 +1,26 @@
 import React from 'react'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from '../../redux/reducers/Cartslice'
+import axios from 'axios'
+
 
 export default function ProductBox(product) {
+    const user = useSelector((state) => state.user)
     const dispatched = useDispatch()
+
+    const cartButtonHandler = (data) => {
+        if (user.data != null) {
+            // user ne login kiya hua hai
+            axios.post(
+                "http://localhost:5000/user/add-to-cart",
+                {
+                    product_id: data.product_id,
+                    user_id: user.data._id
+                }
+            )
+        }
+        dispatched(addToCart(data));
+    }
 
 
     return (
@@ -25,13 +42,12 @@ export default function ProductBox(product) {
                 </div>
 
                 <button onClick={() => {
-                    dispatched(addToCart(
-                        {
-                            product_id: product._id,
-                            price: product.final_price,
-                            original_price: product.original_price
-                        }
-                    ))
+                    cartButtonHandler({
+                        product_id: product._id,
+                        price: product.final_price,
+                        original_price: product.original_price
+                    })
+
                 }} className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
                     Add to Cart
                 </button>

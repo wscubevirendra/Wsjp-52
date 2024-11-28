@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { login } from "../../redux/reducers/Userslice";
+import { dbToCart } from "../../redux/reducers/Cartslice";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,21 +21,39 @@ const Login = () => {
 
     axios.post("http://localhost:5000/user/login", data).then(
       (responce) => {
-      
-        if (responce.data.status == 1)
-          
-        disptached(login({
-          data: responce.data.user,
-          token: responce.data.token
-        }))
 
-        axios.post("http://localhost:5000/user/move-to-cart/" + responce.data.user._id,
+        if (responce.data.status == 1)
+
+          disptached(login({
+            data: responce.data.user,
+            token: responce.data.token
+          }))
+
+        axios.post("http://localhost:5000/user/move-to-cart/" +responce.data.user._id,
           {
             cartData: JSON.stringify(cart.data)
           }
         ).then(
           (succes) => {
-            console.log(succes)
+          
+            const latestCart = succes.data.latestCart;
+            let original_price = 0, final_total = 0;
+            const data = latestCart.map((lc) => {
+              console.log(lc)
+              original_price += (lc.product_id.original_price * lc.qty);
+              final_total += (lc.product_id.final_price * lc.qty);
+
+              return {
+                product_id: lc.product_id._id,
+                qty: lc.qty
+              }
+            })
+          
+            disptached(dbToCart({
+              data: data,
+              total: final_total,
+              original_price: original_price
+            }))
 
           }
         ).catch(

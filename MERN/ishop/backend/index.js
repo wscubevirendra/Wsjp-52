@@ -7,6 +7,7 @@ const ColorRouter = require('./routers/ColorRouter')
 const ProductRouter = require('./routers/ProductRouter')
 const AdminRouter = require('./routers/AdminRouter')
 const UserRouter = require('./routers/UserRouter')
+const OrderRouter = require('./routers/OrderRouter')
 const server = express();
 server.use(express.static("public"));
 
@@ -19,9 +20,10 @@ server.use(cors(
 
 server.use("/category", CategoryRouter);
 server.use("/color", ColorRouter);
-server.use("/product",ProductRouter );
-server.use("/admin",AdminRouter );
-server.use("/user",UserRouter );
+server.use("/product", ProductRouter);
+server.use("/admin", AdminRouter);
+server.use("/user", UserRouter);
+server.use("/order", OrderRouter);
 
 
 
