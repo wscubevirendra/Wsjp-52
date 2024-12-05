@@ -1,11 +1,20 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { formatToIndianCurrency } from '../../helper'
 import axios from "axios";
+import { MainContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
+import { emtyCart } from "../../redux/reducers/Cartslice";
+// Import the package
+import {useRazorpay} from "react-razorpay";
 
 const Checkout = () => {
+  const { notify } = useContext(MainContext)
   const cart = useSelector((state) => state.cart)
   const user = useSelector((state) => state.user.data)
+  const navigate = useNavigate()
+  const dispatched = useDispatch()
+  const {Razorpay} = useRazorpay();
 
   // console.log(user, "my user")
   const [selectedAddress, setSelectedAddress] = useState(0);
@@ -23,7 +32,16 @@ const Checkout = () => {
 
     }).then(
       (succes) => {
-        console.log(succes.data)
+        notify(succes.data.msg, succes.data.status)
+        if (succes.data.status == 1) {
+          if (paymentMode == 0) {
+            navigate("/thank-you/" + succes.data.order_id)
+            dispatched(emtyCart())
+          } else {
+            handlePayment(succes.data.order_id, succes.data.razorpay_order_id)
+          }
+        }
+
       }
     ).catch(
       (error) => {
@@ -32,6 +50,38 @@ const Checkout = () => {
       }
     )
 
+  };
+
+  const handlePayment = async (order_id,razorpay_order_id) => {
+    const options = {
+      key: "rzp_test_Bv2Xs3JK92Wgsk", // Enter the Key ID generated from the Dashboard
+      currency: "INR",
+      name: "WsCube Tech",
+      image: "https://deen3evddmddt.cloudfront.net/images/wscube-tech-logo-2.svg",
+      order_id: razorpay_order_id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+      handler: function (response) {
+        console.log(response)
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: user?.name,
+        email: user?.email,
+        contact: user?.contact,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp1 = new Razorpay(options);
+
+    rzp1.on("payment.failed", function (response) {
+      console.log(response)
+    });
+
+    rzp1.open();
   };
 
   return (

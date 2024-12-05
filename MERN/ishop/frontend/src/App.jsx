@@ -23,6 +23,7 @@ import { useDispatch } from 'react-redux'
 import { lsCartUpdate } from './redux/reducers/Cartslice'
 import { login } from './redux/reducers/Userslice'
 import Checkout from './Pages/website/Checkout'
+import ThankYou from './Pages/website/ThankYou'
 
 
 
@@ -82,6 +83,9 @@ export default function App() {
           }, {
             path: "checkout",
             element: <Checkout />
+          }, {
+            path: "thank-you/:order_id?",
+            element: <ThankYou />
           }
         ]
 

@@ -1,79 +1,36 @@
 <html>
 <script>
-    // for (var i = 1; i <= 5; i++) {
-    //     //i==6 
-    //     for (var j = 1; j <= 5; j++) {
-    //         document.write("+")
-    //         //1
-    //         //2
-    //         //3
-    //         //4
-    //         //5
-    //     }
-    //     document.write('<br>')
-
-
-    // }
-
-    // for (var i = 1; i <= 5; i++) {
-    //     //i==6  6<=5
-    //     for (var j = 1; j <= i; j++) {
-    //         //j=1    end=5
-
-    //         document.write("*")
-    //     }
-    //     document.write('<br>')
-
-
-    // }\
-
-
-    // for (var i = 5; i >= 1; i--) {
-    //     for (var j = 1; j <= i; j++) {
-    //         document.write("*")
-    //     }
-    //   document.write('<br>')
-
-    // }
-
-
-    // for (var i = 1; i <= 10; i++) {
-    //     //4
-    //     for (var j = 1; j <= i; j++) {
-    //         document.write(j)
-    //         //1
-    //         //12
-    //         //123
-    //         //
-    //     }
-    //  document.write('<br>')
-
-    // }
-
-
-    // for (var i = 1; i <= 5; i++) {
-    //     for (var j = 1; j <= i; j++) {
-    //         document.write(i)
-    //     }
-    //     document.write("<hr>")
-    // }
-
-    count = 4
-    for (var i = 1; i <= 4; i++) {
-        //i=3
-        for (var j = 1; j <= i; j++) {
-            //start--1 end ---2
-            document.write(count)
-            
-            count++
+    const car = {
+        brand: "Tesla",
+        model: "Model S",
+        isElectric: true,
+        demo: function (name) {
+            console.log("hello", this.brand)
         }
-        //1
-        //23
-        //456
-        //
-        
-        document.write('<br>')
-    }
+
+    };
+
+    car.demo("virendra")
+    car.demo("Mahesh")
+
+    // const car2 = {
+    //     brand: "Tesla",
+    //     model: "Model S",
+    //     isElectric: true,
+
+    // };
+
+
+    // function updateValue(obj, key, newValue) {
+    //     obj[key] = newValue
+    // }
+
+    // updateValue(car, "model", "model x")
+    // updateValue(car2, "model", "model xll")
+
+    // console.log(car2.model)
+
+
 
 
 </script>

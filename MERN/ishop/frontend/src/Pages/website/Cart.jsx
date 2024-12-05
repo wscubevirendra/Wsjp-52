@@ -134,7 +134,7 @@ export default function Cart() {
                       Original price
                     </dt>
                     <dd className="text-base font-medium text-gray-900">
-                      {formatToIndianCurrency(cart.original_price)}
+                      {formatToIndianCurrency(cart?.original_price)}
                     </dd>
                   </dl>
                   <dl className="flex items-center justify-between gap-4">
@@ -142,7 +142,7 @@ export default function Cart() {
                       Savings
                     </dt>
                     <dd className="text-base font-medium text-green-600">
-                      {formatToIndianCurrency(cart.original_price - cart.total)}
+                      {formatToIndianCurrency(cart?.original_price - cart.total)}
                     </dd>
                   </dl>
 
